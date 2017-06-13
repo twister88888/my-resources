@@ -1,18 +1,22 @@
-import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { Button, Form, FormGroup, Label, Input, FormText, ListGroup, ListGroupItem} from 'reactstrap';
-import Item from './Item.js';
-import moment from 'moment';
+import React, { Component } from 'react'
+import { Container, Row, Col } from 'reactstrap'
+import { Button, Form, FormGroup, Label, Input, FormText, ListGroup, ListGroupItem} from 'reactstrap'
+import Header from './Header'
+import Aside from './Aside'
+import Item from './Item'
+import moment from 'moment'
+import firebase from 'firebase'
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.handleCheckedClick = this.handleCheckedClick.bind(this);
+  //  this.handleCheckedClick = this.handleCheckedClick.bind(this)
 
     this.state = {
       fecha: 0,
-      items: [
+      items: []
+      /*items: [
         {
           name: 'CSS Grid Layout Terminology, Explained',
           type: 'article',
@@ -37,47 +41,64 @@ class App extends Component {
           viewed: 'no',
           labels: 'html'
         }
-      ]
-    };
+      ]*/
+    }
   }
 
-  handleCheckedClick(event) {
+  /*handleCheckedClick(event) {
     //this.setState({ event.dateViewed: moment().format('l') })
+  }*/
+
+  componentWillMount() {
+    this.firebaseRef = firebase.database().ref('resources');
+    this.firebaseRef.limitToLast(25).on('value', function(dataSnapshot) {
+      var items = [];
+      dataSnapshot.forEach(function(childSnapshot) {
+        var item = childSnapshot.val();
+        item['.key'] = childSnapshot.key;
+        items.push(item);
+      });
+
+      this.setState({
+        items: items
+      });
+    }.bind(this));
   }
+
+  componentWillUnmount() {
+    this.firebaseRef.off();
+  }
+
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col>
-
-            Nombre APP | Buscar | Añadir | Login | Logout </Col>
-        </Row>
-        <Row>
-          <Col lg='4'>
-            <ListGroup>
-               <ListGroupItem>Cras justo odio</ListGroupItem>
-               <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-               <ListGroupItem>Morbi leo risus</ListGroupItem>
-               <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-               <ListGroupItem>Vestibulum at eros</ListGroupItem>
-             </ListGroup>
-          </Col>
-          <Col lg='8'>
-            {this.state.items.length > 0 && this.state.items.map(items => (
-                <Item
-                  key={items.name}
-                  name={items.name}
-                  date={items.dateViewed}
-                  link={items.link}
-                  handleCheckedClick={this.handleCheckedClick}
-                />
-            ))}
-          </Col>
-        </Row>
-      </Container>
-    );
+      <div className='wrapper'>
+        <Container fluid>
+          <Row>
+            <Col>
+              <Header />
+            </Col>
+          </Row>
+          <Row>
+            <Col lg='4'>
+              <Aside />
+            </Col>
+            <Col lg='8'>
+              {this.state.items.length > 0 && this.state.items.map(items => (
+                  <Item
+                    key={items.name}
+                    name={items.name}
+                    date={items.dateViewed}
+                    link={items.link}
+                    handleCheckedClick={this.handleCheckedClick}
+                  />
+              ))}
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    )
   }
 }
 
-export default App;
+export default App
