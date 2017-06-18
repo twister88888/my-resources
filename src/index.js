@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import App from './components/App'
 import firebase from 'firebase'
-import registerServiceWorker from './registerServiceWorker'
+import registerServiceWorker from './components/registerServiceWorker'
 import 'bootstrap/dist/css/bootstrap.css'
-import './App.css'
+import './static/css/App.css'
 
 var config = {
   apiKey: "AIzaSyD_OeCv23-rBLc7jNo-zBeJJJ1BWMpyrQg",
@@ -14,6 +14,7 @@ var config = {
   storageBucket: "personal-goals-d34e1.appspot.com",
   messagingSenderId: "685481268255"
 };
+
 firebase.initializeApp(config);
 
 ReactDOM.render(<App />, document.getElementById('root'))
