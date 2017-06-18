@@ -3,7 +3,7 @@ import React from 'react'
 const Aside = () => {
   return (
     <div className='main'>
-      <aside className='navbar-wrapper' role='sidebar'>
+      <aside className='navbar-wrapper'>
         <div className='sidebar-navbar'>
           <div className='navbar-primary'>
             <span className='navbar-primary__title'>Mi Lista</span>

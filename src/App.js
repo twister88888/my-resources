@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
-import { Button, Form, FormGroup, Label, Input, FormText, ListGroup, ListGroupItem} from 'reactstrap'
 import Header from './Header'
 import Aside from './Aside'
 import Item from './Item'
@@ -50,25 +49,24 @@ class App extends Component {
   }*/
 
   componentWillMount() {
-    this.firebaseRef = firebase.database().ref('resources');
+    this.firebaseRef = firebase.database().ref('resources')
     this.firebaseRef.limitToLast(25).on('value', function(dataSnapshot) {
-      var items = [];
+      var items = []
       dataSnapshot.forEach(function(childSnapshot) {
-        var item = childSnapshot.val();
-        item['.key'] = childSnapshot.key;
-        items.push(item);
-      });
+        var item = childSnapshot.val()
+        item['.key'] = childSnapshot.key
+        items.push(item)
+      })
 
       this.setState({
         items: items
-      });
-    }.bind(this));
+      })
+    }.bind(this))
   }
 
   componentWillUnmount() {
-    this.firebaseRef.off();
+    this.firebaseRef.off()
   }
-
 
   render() {
     return (

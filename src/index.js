@@ -15,12 +15,6 @@ var config = {
   messagingSenderId: "685481268255"
 };
 firebase.initializeApp(config);
-//ON. Accede a un hijo, esperando cambios
-var ref = firebase.database().ref('resources').child('2');
-ref.on('value', function(snapshot) {
-  var template = snapshot.val();
-  console.log(template);
-});
 
 ReactDOM.render(<App />, document.getElementById('root'))
 registerServiceWorker()
