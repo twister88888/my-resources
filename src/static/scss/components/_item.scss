@@ -1,0 +1,20 @@
+.Item {
+  border: 1px solid #dcdce0;
+  border-width: 0 0 1px;
+  display: block;
+  height: 81px;
+  max-width: 74em;
+  min-height: 80px;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  transition: opacity .2s ease-out;
+}
+
+.Item__name {
+  color: #313131;
+  &:hover{
+    color: #43aea8;
+    text-decoration: none;
+  }
+}
