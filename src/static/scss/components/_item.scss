@@ -1,20 +1,40 @@
 .Item {
-  border: 1px solid #dcdce0;
+  border: 1px solid $light-grey;
   border-width: 0 0 1px;
-  display: block;
-  height: 81px;
+  display: flex;
+  height: 71px;
   max-width: 74em;
-  min-height: 80px;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 70px;
   overflow: hidden;
+  padding: .5rem;
   position: relative;
-  padding: 0;
   transition: opacity .2s ease-out;
 }
 
 .Item__name {
-  color: #313131;
-  &:hover{
-    color: #43aea8;
+  color: $dark-grey;
+  width: 100%;
+  &:hover {
+    color: $text-color;
     text-decoration: none;
   }
+}
+
+.Item__link {
+  color: $mid-grey;
+  font-size: 12px;
+  display: flex;
+  width: 100%;
+  &:hover {
+    color: $text-color;
+    text-decoration: none;
+  }
+}
+
+.Item__buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
